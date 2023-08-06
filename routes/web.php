@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Models\Students;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,11 +32,13 @@ Route::get('/',[StudentController::class, 'index'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login/process', [UserController::class, 'process']);
 Route::get('/register', [UserController::class, 'register'])->middleware('guest');
-Route::post('/store', [UserController::class, 'store'])->middleware('auth');
+Route::post('/store', [UserController::class, 'store'])->middleware('guest');
 Route::post('/logout', [UserController::class, 'logout']);  
 
-// addStudent
+//Student
 Route::match(['post', 'get'], '/add/student', [StudentController::class, 'store'])->middleware('auth');
 Route::view('/add', 'students.addstudent')->middleware('auth');
 Route::post('/search',[StudentController::class, 'show'])->middleware('auth');
 Route::delete('/delete/{id}', [StudentController::class, 'delete'])->middleware('auth');
+Route::get('/edit/{id}', [StudentController::class, 'edit'])->middleware('auth');
+Route::put('/edit/student/{id}', [StudentController::class, 'update'])->middleware('auth');

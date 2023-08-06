@@ -52,7 +52,10 @@
                         <td>{{$student->email}}</td>
                         <td>{{$student->age}}</td>
                         <td class="flex gap-1">
-                          <a href="" class="btn btn-xs bg-green-400 hover:bg-green-500 border-none">edit</a>
+                          <form action="/edit/{{$student->id}}" method="GET">
+                            @csrf
+                              <button type="submit" class="btn btn-xs bg-green-400 hover:bg-green-500 border-none">edit</button>
+                          </form>
                           <form action="/delete/{{$student->id}}" method="POST">
                             @csrf
                             @method('delete')
