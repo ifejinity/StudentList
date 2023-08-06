@@ -40,5 +40,8 @@ Route::match(['post', 'get'], '/add/student', [StudentController::class, 'store'
 Route::view('/add', 'students.addstudent')->middleware('auth');
 Route::post('/search',[StudentController::class, 'show'])->middleware('auth');
 Route::delete('/delete/{id}', [StudentController::class, 'delete'])->middleware('auth');
-Route::get('/edit/{id}', [StudentController::class, 'edit'])->middleware('auth');
-Route::put('/edit/student/{id}', [StudentController::class, 'update'])->middleware('auth');
+
+Route::prefix('edit')->middleware(['auth', 'auth'])->group(function() {
+    Route::get('/{id}', [StudentController::class, 'edit']);
+    Route::put('/student/{id}', [StudentController::class, 'update']);
+});
